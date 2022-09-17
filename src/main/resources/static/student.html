@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Student</title>
+</head>
+
+<body>
+  <p></p>
+  <div class="container">
+    <!-- Content here -->
+    <div style="display:flex;justify-content:space-between;">
+      <a href="index.html" type="button" class="btn btn-primary">Home</a>
+      <a href="course.html" type="button" class="btn btn-secondary">Course</a>
+    </div>
+    <p></p>
+    <div>
+      <a href="addStudent.html" type="button" class="btn btn-success">Add Student</a>
+      <p></p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Major</th>
+            <th scope="col">GPA</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="insertHere">
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    window.onload = (event) => {
+      console.log('Student page is fully loaded');
+      getCourse();
+    };
+
+    function getCourse() {
+      fetch('http://localhost:8080/student')
+        .then((response) => response.json())
+        .then((data) => {
+          let where = document.getElementById("insertHere");
+          let element= "";
+          if( data.length > 0 ){
+            
+            for (let index in data) {
+                element += "<tr>";
+                element += `<th scope="row">${data[index].id}</th>
+                <td>${data[index].firstName}</td>
+                <td>${data[index].lastName}</td>
+                <td>${data[index].email}</td>
+                <td>${data[index].major}</td>
+                <td>${data[index].gpa}</td>
+                <td>
+                  <button type="button" onclick="editClick(${data[index]}, ${data[index].id})" class="btn btn-success btn-sm">Edit</button>
+                  <button type="button" onclick="deleteClick(${data[index].id})" class="btn btn-danger btn-sm">Delete</button>
+                </td>`;
+                element +=  "</tr>";
+              }
+              
+            } else {
+              element += `<tr><td colspan="4" style="text-align: center;">Nothing To Display</td></tr>`;
+            }
+            where.innerHTML = element;
+          
+        });
+    }
+
+    function deleteClick(id){
+      fetch("http://localhost:8080/student/"+id, {method: 'DELETE'})
+            .then(response => window.location.href = "./student.html")
+    }
+    
+    function editClick(data, id){
+      fetch("http://localhost:8080/student", {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'content-type': 'application/json'}),})
+            .then(response => window.location.href = "./student.html")
+    }
+  </script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
