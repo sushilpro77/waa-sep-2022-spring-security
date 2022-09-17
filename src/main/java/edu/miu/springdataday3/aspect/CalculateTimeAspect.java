@@ -46,7 +46,7 @@ public class CalculateTimeAspect {
         if ( httpServletRequest.getMethod().equals("POST")){
             if (httpServletRequest.getHeader("AOP-IS-AWESOME") == null){
                 //throw new AopIsAwesomeHeaderException("AOP-IS-AWESOME is required");
-                System.out.println("AOP-IS-AWESOME is required");
+//                System.out.println("AOP-IS-AWESOME is required");
             }
         }
     }

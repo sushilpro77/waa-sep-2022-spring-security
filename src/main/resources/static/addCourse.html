@@ -44,7 +44,7 @@
         if( (id == "" || name == "" || code == "") ){ alert('Please enter both values'); return }
         
         let data = {id,name,code};
-        fetch("http://localhost:8080/courses", {method: 'POST', body: JSON.stringify(data), headers: new Headers({'content-type': 'application/json'}),})
+        fetch("http://localhost:8080/courses", {method: 'POST', body: JSON.stringify(data), headers: new Headers({'content-type': 'application/json', 'Authorization': localStorage.getItem("token")})})
             .then(response => window.location.href = "./course.html")
         
       }

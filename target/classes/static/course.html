@@ -47,7 +47,7 @@
     };
 
     function getCourse() {
-      fetch('http://localhost:8080/course')
+      fetch('http://localhost:8080/course', {'Authorization': localStorage.getItem("token")})
         .then((response) => response.json())
         .then((data) => {
           let where = document.getElementById("insertHere");
