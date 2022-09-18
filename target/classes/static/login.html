@@ -34,7 +34,8 @@
     password: document.getElementById("exampleInputPassword1").value
   })
   .then(function (response) {
-    localStorage.setItem("token", response.data.accessToken )
+    localStorage.removeItem("token")
+    localStorage.setItem("token", "Bearer "+response.data.accessToken )
     window.location.href = "./course.html";
   })
   .catch(function (error) {

@@ -1,5 +1,6 @@
 package edu.miu.springdataday3.controller;
 
+import edu.miu.springdataday3.aspect.offensive.OffensiveFilter;
 import edu.miu.springdataday3.entity.dto.ProductDTO;
 import edu.miu.springdataday3.entity.dto.ReviewDTO;
 import edu.miu.springdataday3.service.ProductService;
@@ -23,6 +24,7 @@ public class ProductController {
 
     //post
     @PostMapping
+    @OffensiveFilter
     public ProductDTO create(@RequestBody ProductDTO productDTO){
         return productService.create(productDTO);
     }

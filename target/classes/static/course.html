@@ -47,7 +47,7 @@
     };
 
     function getCourse() {
-      fetch('http://localhost:8080/course', {'Authorization': localStorage.getItem("token")})
+      fetch('http://localhost:4040/product', {headers: new Headers({'Authorization': localStorage.getItem("token")})})
         .then((response) => response.json())
         .then((data) => {
           let where = document.getElementById("insertHere");
@@ -58,7 +58,7 @@
                 element += "<tr>";
                 element += `<th scope="row">${data[index].id}</th>
                 <td>${data[index].name}</td>
-                <td>${data[index].code}</td>
+                <td>${data[index].rating}</td>
                 <td>
                   <button type="button" onclick="editClick(${data[index]}, ${data[index].id})" class="btn btn-success btn-sm">Edit</button>
                   <button type="button" onclick="deleteClick(${data[index].id})" class="btn btn-danger btn-sm">Delete</button>

@@ -28,3 +28,6 @@ VALUES (2, 'iPad', 900, 2,2,1);
 
 insert into product (id, name, price, rating,id_user, category_id)
 VALUES (3, 'Pen', 5, 1,1,1);
+
+insert into product (id, name, price, rating,id_user, category_id)
+VALUES (4, 'springing', 1200, 1,1,1);
